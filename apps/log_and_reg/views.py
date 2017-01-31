@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.core.urlresolvers import reverse
 import bcrypt
+import datetime
 from .models import User
 
 # Create your views here.
@@ -10,7 +11,8 @@ def index(request):
     #     request.session['user_id'] = None
     sumthin = bcrypt.hashpw('sumtin'.encode(), bcrypt.gensalt())
     context = {
-        'sumthin': sumthin
+        'sumthin': sumthin,
+        'tyme': datetime.datetime.now
     }
     return render(request, 'log_and_reg/index.html', context)
 
