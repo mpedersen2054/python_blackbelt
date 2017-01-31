@@ -79,9 +79,3 @@ class User(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     objects    = UserManager()
-
-class Post(models.Model):
-    pass
-
-class Comment(models.Model):
-    pass

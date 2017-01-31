@@ -7,12 +7,9 @@ from .models import User
 
 # Create your views here.
 def index(request):
-    # if not 'user_id' in request.session:
-    #     request.session['user_id'] = None
-    sumthin = bcrypt.hashpw('sumtin'.encode(), bcrypt.gensalt())
+    if not 'user_id' in request.session:
+        request.session['user_id'] = None
     context = {
-        'sumthin': sumthin,
-        'tyme': datetime.datetime.now
     }
     return render(request, 'log_and_reg/index.html', context)
 
@@ -29,7 +26,7 @@ def register(request):
             email    = request.POST['email'],
             password = encrypted_password
         )
-        # request.session['user_id'] = new_user.id
+        request.session['user_id'] = new_user.id
         messages.success(request, 'Successfully registered user.')
         return redirect('log_and_reg:index')
 
@@ -51,3 +48,7 @@ def logout(request):
     request.session.flush()
     messages.error(request, 'Successfully logged out.')
     return redirect('log_and_reg:index')
+
+
+def success(request):
+    return render(request, 'log_and_reg/success.html')
