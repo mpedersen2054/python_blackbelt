@@ -1,0 +1,68 @@
+
+{% extends 'log_and_reg/_base.html' %}
+
+{% block content %}
+
+<div class="container">
+  <br>
+  <div class="row">
+    <div class="col-md-12">
+      <h1>Welcome to the test app!</h1>
+      <h2>{{sumthin}}</h2>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <div class="register-container">
+        <h3>Register</h3>
+        <div class="well">
+          <form action="{% url 'log_and_reg:index' %}" method="POST" class="form">
+            {% csrf_token %}
+            <div class="form-group">
+              <div class="row">
+                <div class="col-md-6">
+                  <input type="text" name="first_name" class="form-control" placeholder="First name...">
+                </div>
+                <div class="col-md-6">
+                  <input type="text" name="last_name" class="form-control" placeholder="Last name...">
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <input type="text" name="email" class="form-control" placeholder="Email...">
+            </div>
+            <div class="form-group">
+              <input type="text" name="password" class="form-control" placeholder="Password...">
+            </div>
+            <div class="form-group">
+              <input type="text" name="password_conf" class="form-control" placeholder="Password confirmation...">
+            </div>
+            <input type="submit" value="Submit" class="btn btn-primary">
+          </form>
+        </div>
+        <a href="{% url 'log_and_reg:login' %}">Already have an account? Login.</a>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="login-container">
+        <h3>Login</h3>
+        <div class="well">
+          <form action="{% url 'log_and_reg:index' %}" method="POST" class="form">
+            {% csrf_token %}
+            <div class="form-group">
+              <input type="text" name="email" class="form-control" placeholder="Email...">
+            </div>
+            <div class="form-group">
+              <input type="text" name="password" class="form-control" placeholder="Password...">
+            </div>
+            <input type="submit" value="Submit" class="btn btn-primary">
+          </form>
+        </div>
+        <a href="{% url 'log_and_reg:register' %}">Don't have an account? Register.</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock content %}
