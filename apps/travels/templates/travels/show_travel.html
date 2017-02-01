@@ -33,7 +33,9 @@
       <h2>Other users joining the trip</h2>
       <ul class="users">
         {% for user in trip.user_set.all %}
-          <li class="user">{{user.name}}</li>
+          {% if user.id != request.session.user_id %}
+            <li class="user">{{user.name}}</li>
+          {% endif %}
         {% endfor %}
       </ul>
     </div>
