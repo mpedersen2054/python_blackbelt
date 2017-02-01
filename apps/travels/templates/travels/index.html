@@ -39,12 +39,12 @@
         </thead>
         <tbody>
           {% for trip in user.trips.all %}
-          <tr>
-            <td>{{trip.destination}}</td>
-            <td>{{trip.date_from}}</td>
-            <td>{{trip.date_to}}</td>
-            <td>{{trip.description}}</td>
-          </tr>
+            <tr>
+              <td><a href="{% url 'travels:show_travel' id=trip.id %}">{{trip.destination}}</a></td>
+              <td>{{trip.date_from}}</td>
+              <td>{{trip.date_to}}</td>
+              <td>{{trip.description}}</td>
+            </tr>
           {% endfor %}
 
         </tbody>
@@ -66,24 +66,27 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>hello</td>
-            <td>hello</td>
-            <td>hello</td>
-            <td>hello</td>
-            <td>hello</td>
-          </tr>
-          <tr>
-            <td>hello</td>
-            <td>hello</td>
-            <td>hello</td>
-            <td>hello</td>
-            <td>hello</td>
-          </tr>
+          {% for trip in other_trips %}
+            <tr>
+              <td>{{trip.added_by.name}}</td>
+              <td><a href="{% url 'travels:show_travel' id=trip.id %}">{{trip.destination}}</a></td>
+              <td>{{trip.date_from}}</td>
+              <td>{{trip.date_to}}</td>
+              <td>
+                <form action="{% url 'travels:join_travel' %}" method="POST">
+                  {% csrf_token %}
+                  <input type="hidden" name="trip_id" value="{{trip.id}}">
+                  <input type="submit" class="btn btn-link" value="Join">
+                </form>
+              </td>
+            </tr>
+          {% endfor %}
         </tbody>
       </table>
     </div>
   </div>
+
+  {{other_trips}}
 
   <div class="row">
     <div class="col-md-12">

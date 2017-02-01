@@ -12,16 +12,12 @@ def index(request):
         return redirect('log_and_reg:index')
 
     user = User.objects.filter(id=request.session['user_id']).first()
-    trips = Travel.objects.all()
-    print user.trips.all()
-
-    user_trips = user.trips.all()
+    other_trips = Travel.objects.all().exclude(user__id=user.id)
 
     context = {
         'home': True,
         'user': user,
-        'trips': trips,
-        'user_trips': user_trips
+        'other_trips': other_trips
     }
     return render(request, 'travels/index.html', context)
 
@@ -31,7 +27,12 @@ def show_travel(request, id):
         messages.error(request, 'You need to be logged in to go there.')
         return redirect('log_and_reg:index')
 
-    return render(request, 'travels/show_travel.html')
+    trip = Travel.objects.filter(id=id).first()
+    context = {
+        'trip': trip
+    }
+
+    return render(request, 'travels/show_travel.html', context)
 
 def add_travel(request):
     if not 'user_id' in request.session \
@@ -44,12 +45,9 @@ def add_travel(request):
 def create_travel(request):
     if request.method != 'POST':
         return redirect('travels:add_travel')
-    # print 'REQPSOT: ', request.POST
 
     user = User.objects.filter(id=request.session['user_id']).first()
-
     errors = Travel.objects.check_validity(request.POST)
-
     if len(errors) > 0:
         for error in errors:
             messages.error(request, error)
@@ -63,8 +61,17 @@ def create_travel(request):
             date_to = formatted_data['date_to'],
             added_by = user
         )
+        # add the trip to the user.trips, save the user
         user.trips.add(trip)
         user.save()
-        # print 'FORMATTED DATA!', formatted_data
         messages.success(request, 'Successfully added trip!')
         return redirect('travels:index')
+
+
+def join_travel(request):
+    print request.POST
+    user = User.objects.filter(id=request.session['user_id']).first()
+    trip = Travel.objects.filter(id=request.POST['trip_id']).first()
+    user.trips.add(trip)
+    user.save()
+    return redirect('travels:index')

@@ -32,6 +32,9 @@ class TravelManager(models.Manager):
             date_from = datetime(int(df[0]), int(df[1]), int(df[2]))
             date_to = datetime(int(dt[0]), int(dt[1]), int(dt[2]))
 
+            if date_from < datetime.now() or date_to < datetime.now():
+                errors.append('The dates must be future based.')
+
             if date_from > date_to:
                 errors.append("The 'from date' needs to be before the 'to date'.")
 
@@ -41,7 +44,7 @@ class TravelManager(models.Manager):
 class Travel(models.Model):
     destination = models.CharField(max_length=100)
     description = models.CharField(max_length=255)
-    added_by    = models.OneToOneField('log_and_reg.User', on_delete=models.CASCADE)
+    added_by    = models.ForeignKey('log_and_reg.User', on_delete=models.CASCADE)
     date_from   = models.DateTimeField(default=datetime.now)
     date_to     = models.DateTimeField(default=datetime.now)
     created_at  = models.DateTimeField(auto_now_add=True)

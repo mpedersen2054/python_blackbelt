@@ -11,19 +11,19 @@
       <h2>Travel Destination Here</h2>
       <div class="row st-row">
         <div class="col-md-2">Planned by:</div>
-        <div class="col-md-6"><b>Mark Twain</b></div>
+        <div class="col-md-6"><b>{{trip.added_by.name}}</b></div>
       </div>
       <div class="row st-row">
         <div class="col-md-2">Description:</div>
-        <div class="col-md-6"><b>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi, excepturi.</b></div>
+        <div class="col-md-6"><b>{{trip.description}}</b></div>
       </div>
       <div class="row st-row">
-        <div class="col-md-2">Travel date from:</div>
-        <div class="col-md-6"><b>Oct 21 2015</b></div>
+        <div class="col-md-2">Date from:</div>
+        <div class="col-md-6"><b>{{trip.date_from}}</b></div>
       </div>
       <div class="row st-row">
-        <div class="col-md-2">Travel date to:</div>
-        <div class="col-md-6"><b>Nov 5 2015</b></div>
+        <div class="col-md-2">Date to:</div>
+        <div class="col-md-6"><b>{{trip.date_to}}</b></div>
       </div>
     </div>
   </div>
@@ -32,9 +32,9 @@
     <div class="col-md-8">
       <h2>Other users joining the trip</h2>
       <ul class="users">
-        <li class="user">Person Name</li>
-        <li class="user">Michael Jordan</li>
-        <li class="user">Pete Carol</li>
+        {% for user in trip.user_set.all %}
+          <li class="user">{{user.name}}</li>
+        {% endfor %}
       </ul>
     </div>
   </div>
