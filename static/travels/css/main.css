@@ -11,3 +11,7 @@ h1 { margin: 0; }
   float: right;
   margin: 20px 0 10px;
 }
+
+.add-travel-ctnr {
+  text-align: right;
+}
