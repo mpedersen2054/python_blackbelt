@@ -13,8 +13,6 @@ def index(request):
     return render(request, 'log_and_reg/index.html', context)
 
 def register(request):
-    # print 'REQPOST:', request.POST
-    # return redirect('log_and_reg:index')
     errors = User.objects.validate_register(request.POST)
     if len(errors) > 0:
         for error in errors:
@@ -43,7 +41,7 @@ def login(request):
         request.session['user_id'] = user_id
         messages.success(request, 'Successfully logged in.')
         # send to admin dash if admin, else send to user dash
-        return redirect('log_and_reg:index')
+        return redirect('travels:index')
 
 def logout(request):
     request.session.flush()

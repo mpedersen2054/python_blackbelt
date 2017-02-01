@@ -3,7 +3,29 @@ from datetime import datetime
 from django.db import models
 
 class TravelManager(models.Manager):
-    pass
+    def format_data(self, postData, user):
+        df = postData['date_from'].split('-')
+        dt = postData['date_to'].split('-')
+        date_from = datetime(int(df[0]), int(df[1]), int(df[2]))
+        date_to = datetime(int(dt[0]), int(dt[1]), int(dt[2]))
+
+        return {
+            'destination': postData['destination'],
+            'description': postData['description'],
+            'date_from': date_from,
+            'date_to': date_to,
+            'added_by': user
+        }
+
+    def check_validity(self, data):
+        errors = []
+
+        if len(data['destination']) < 3:
+            errors.append('Destination needs to be more than 3 characters.')
+        if len(data['description']) < 3:
+            errors.append('Description needs to be more than 3 characters.')
+
+        return errors
 
 # Create your models here.
 class Travel(models.Model):
