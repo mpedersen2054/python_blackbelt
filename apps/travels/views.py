@@ -12,9 +12,16 @@ def index(request):
         return redirect('log_and_reg:index')
 
     user = User.objects.filter(id=request.session['user_id']).first()
+    trips = Travel.objects.all()
+    print user.trips.all()
+
+    user_trips = user.trips.all()
+
     context = {
         'home': True,
-        'user': user
+        'user': user,
+        'trips': trips,
+        'user_trips': user_trips
     }
     return render(request, 'travels/index.html', context)
 
@@ -49,6 +56,15 @@ def create_travel(request):
         return redirect('travels:add_travel')
     else:
         formatted_data = Travel.objects.format_data(request.POST, user)
-        print 'FORMATTED DATA!', formatted_data
+        trip = Travel.objects.create(
+            destination = formatted_data['destination'],
+            description = formatted_data['description'],
+            date_from = formatted_data['date_from'],
+            date_to = formatted_data['date_to'],
+            added_by = user
+        )
+        user.trips.add(trip)
+        user.save()
+        # print 'FORMATTED DATA!', formatted_data
         messages.success(request, 'Successfully added trip!')
         return redirect('travels:index')

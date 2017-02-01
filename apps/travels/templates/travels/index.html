@@ -19,6 +19,12 @@
     </div>
   </div>
 
+  {{user_trips}}
+
+  {% for trip in trips %}
+    <p>{{trip.user_set.all}}</p>
+  {% endfor %}
+
   <div class="row">
     <div class="col-md-8">
       <h4>Your trip schedules</h4>
@@ -32,24 +38,15 @@
           </tr>
         </thead>
         <tbody>
+          {% for trip in user.trips.all %}
           <tr>
-            <td>hi</td>
-            <td>hi</td>
-            <td>hi</td>
-            <td>hi</td>
+            <td>{{trip.destination}}</td>
+            <td>{{trip.date_from}}</td>
+            <td>{{trip.date_to}}</td>
+            <td>{{trip.description}}</td>
           </tr>
-          <tr>
-            <td>hi</td>
-            <td>hi</td>
-            <td>hi</td>
-            <td>hi</td>
-          </tr>
-          <tr>
-            <td>hi</td>
-            <td>hi</td>
-            <td>hi</td>
-            <td>hi</td>
-          </tr>
+          {% endfor %}
+
         </tbody>
       </table>
     </div>
