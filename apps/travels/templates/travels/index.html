@@ -1,0 +1,64 @@
+
+{% extends 'travels/_base.html' %}
+
+{% block content %}
+
+<div class="container">
+
+  <div class="row">
+    <div class="col-md-12">
+      <a href="#">Logout</a>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <h1>Hello, Name</h1>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      {% include 'travels/_messages.html' %}
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-8">
+      <h4>Your trip schedules</h4>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Destination</th>
+            <th>Travel start date</th>
+            <th>Travel end date</th>
+            <th>Plan</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>hi</td>
+            <td>hi</td>
+            <td>hi</td>
+            <td>hi</td>
+          </tr>
+          <tr>
+            <td>hi</td>
+            <td>hi</td>
+            <td>hi</td>
+            <td>hi</td>
+          </tr>
+          <tr>
+            <td>hi</td>
+            <td>hi</td>
+            <td>hi</td>
+            <td>hi</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+
+{% endblock content %}

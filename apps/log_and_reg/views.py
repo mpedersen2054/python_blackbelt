@@ -14,7 +14,6 @@ def index(request):
     return render(request, 'log_and_reg/index.html', context)
 
 def register(request):
-    print 'HELLO REGISTERRRR'
     errors = User.objects.validate_register(request.POST)
     if len(errors) > 0:
         for error in errors:

@@ -2,7 +2,6 @@ from __future__ import unicode_literals
 import re
 import bcrypt
 from django.db import models
-from datetime import datetime
 
 class UserManager(models.Manager):
     def validate_register(self, registerData):
@@ -11,17 +10,17 @@ class UserManager(models.Manager):
         email_format_regex = '^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$'
 
         name_valid          = False
-        email_valid         = False
+        username_valid      = False
         password_valid      = False
         password_conf_valid = False
         user_exists         = False
 
         # first_name & last_name more than 2 chars, letters only
-        if re.match(letter_only_regex, registerData['name']) and len(registerData['name']) > 2:
+        if re.match(letter_only_regex, registerData['name']) and len(registerData['name']) > 3:
             name_valid = True
         # email valid format & exists
-        if re.match(email_format_regex, registerData['email']) and len(registerData['email']) > 0:
-            email_valid = True
+        if re.match(email_format_regex, registerData['username']) and len(registerData['username']) > 3:
+            username_valid = True
         # password exists, more than 8 chars
         if len(registerData['password']) > 8:
             password_valid = True
@@ -30,14 +29,14 @@ class UserManager(models.Manager):
             password_conf_valid = True
 
         # check if email exists in the db
-        user = User.objects.filter(email=registerData['email'])
+        user = User.objects.filter(username=registerData['username'])
         if len(user) > 0:
             user_exists = True
 
         if not name_valid:
             errors.append('The last name was invalid. It needs to be only letters and at least 2 characters')
-        if not email_valid:
-            errors.append('The email was not valid.')
+        if not username_valid:
+            errors.append('The username was not valid.')
         if not password_valid:
             errors.append('The password was not valid.')
         if not password_conf_valid:
@@ -50,7 +49,7 @@ class UserManager(models.Manager):
     def validate_login(self, loginData):
         errors = []
 
-        user = User.objects.filter(email=loginData['email']).first()
+        user = User.objects.filter(username=loginData['username']).first()
 
         if not user:
             errors.append('A user with that email doesnt exist in the database. Please register.')
@@ -75,9 +74,8 @@ class UserManager(models.Manager):
 # Create your models here.
 class User(models.Model):
     name       = models.CharField(max_length=100)
-    email      = models.CharField(max_length=100)
+    username   = models.CharField(max_length=100)
     password   = models.CharField(max_length=255)
-    birthday   = models.DateTimeField(default=datetime.now)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     objects    = UserManager()
