@@ -2,6 +2,7 @@ from __future__ import unicode_literals
 import re
 import bcrypt
 from django.db import models
+from datetime import datetime
 
 class UserManager(models.Manager):
     def validate_register(self, registerData):
@@ -76,6 +77,7 @@ class User(models.Model):
     name       = models.CharField(max_length=100)
     email      = models.CharField(max_length=100)
     password   = models.CharField(max_length=255)
+    birthday   = models.DateTimeField(default=datetime.now)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     objects    = UserManager()

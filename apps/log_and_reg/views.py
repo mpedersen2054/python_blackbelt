@@ -14,16 +14,18 @@ def index(request):
     return render(request, 'log_and_reg/index.html', context)
 
 def register(request):
+    print 'HELLO REGISTERRRR'
     errors = User.objects.validate_register(request.POST)
     if len(errors) > 0:
         for error in errors:
             messages.error(request, error)
-        return redirect('log_and_reg:register')
+        return redirect('log_and_reg:index')
     else:
         encrypted_password = User.objects.encrypt_password(request.POST['password'])
         new_user = User.objects.create(
             name     = request.POST['name'],
             email    = request.POST['email'],
+            birthday = request.POST['birthday'],
             password = encrypted_password
         )
         request.session['user_id'] = new_user.id

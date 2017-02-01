@@ -1,60 +1,13 @@
 
-body {
-  margin: 0 0 60px 0;
-}
+body { margin: 0 0 60px 0; }
+.messages { margin: 20px 0 0; padding: 0; list-style: none; }
+.error { background-color: red; color: #fff; }
+.success { background-color: green; color: #fff; }
 
-ul {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-.error {
-  background-color: red;
-  color: #fff;
-}
-.success {
-  background-color: green;
-  color: #fff;
-}
+h1 { margin: 0; }
 
-.messages-row {
-  margin-top: 55px;
-}
-
-.admin-dashboard .page-header,
-.user-dashboard .page-header {
+.birthday-label {
   position: relative;
-  clear: both;
-}
-
-.admin-dashboard .align-right,
-.user-dashboard .align-right {
-  float: right;
-  position: relative;
-  top: 25px;
-}
-
-.admin-dashboard .align-left,
-.user-dashboard .align-left {
-  float: left;
-}
-
-h1 {
-  margin: 0;
-  color: red;
-}
-
-.meta-btn {
+  top: 5px;
   text-align: right;
-}
-
-.show-user .media-list .media-content {
-  border: 1px solid #ccc;
-  padding: 10px;
-  border-radius: 6px;
-}
-
-.media .blankspace {
-  width: 50px;
-  height: 50px;
 }
