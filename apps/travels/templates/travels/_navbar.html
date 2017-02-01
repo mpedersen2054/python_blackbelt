@@ -1,0 +1,11 @@
+
+<nav>
+  <div class="container">
+    <ul class="nav nav-pills">
+      {% if not home %}
+        <li role="presentation"><a href="{% url 'travels:index' %}">Home</a></li>
+      {% endif %}
+      <li role="presentation"><a href="{% url 'log_and_reg:logout' %}">Logout</a></li>
+    </ul>
+  </div>
+</nav>

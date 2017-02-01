@@ -3,13 +3,9 @@
 
 {% block content %}
 
-<div class="container">
+{% include 'travels/_navbar.html' %}
 
-  <div class="row">
-    <div class="col-md-12">
-      <a href="#">Logout</a>
-    </div>
-  </div>
+<div class="container">
 
   <div class="row">
     <div class="col-md-12">
@@ -94,7 +90,7 @@
 
   <div class="row">
     <div class="col-md-12">
-      <a href="#">Add Travel Plan</a>
+      <a href="{% url 'travels:add_travel' %}">Add Travel Plan</a>
     </div>
   </div>
 

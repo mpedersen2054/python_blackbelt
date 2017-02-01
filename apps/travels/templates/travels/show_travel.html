@@ -1,0 +1,43 @@
+{% extends 'travels/_base.html' %}
+
+{% block content %}
+
+{% include 'travels/_navbar.html' %}
+
+<div class="container">
+
+  <div class="row">
+    <div class="col-md-8">
+      <h2>Travel Destination Here</h2>
+      <div class="row st-row">
+        <div class="col-md-2">Planned by:</div>
+        <div class="col-md-6"><b>Mark Twain</b></div>
+      </div>
+      <div class="row st-row">
+        <div class="col-md-2">Description:</div>
+        <div class="col-md-6"><b>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi, excepturi.</b></div>
+      </div>
+      <div class="row st-row">
+        <div class="col-md-2">Travel date from:</div>
+        <div class="col-md-6"><b>Oct 21 2015</b></div>
+      </div>
+      <div class="row st-row">
+        <div class="col-md-2">Travel date to:</div>
+        <div class="col-md-6"><b>Nov 5 2015</b></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-8">
+      <h2>Other users joining the trip</h2>
+      <ul class="users">
+        <li class="user">Person Name</li>
+        <li class="user">Michael Jordan</li>
+        <li class="user">Pete Carol</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+{% endblock content %}

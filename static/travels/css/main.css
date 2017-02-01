@@ -1,7 +1,12 @@
-
-body { margin: 0 0 60px 0; }
 .messages { margin: 20px 0 0; padding: 0; list-style: none; }
 .error { background-color: red; color: #fff; }
 .success { background-color: green; color: #fff; }
 
-h1 { margin: 0; }
+.st-row {
+  margin: 10px;
+}
+
+.nav {
+  float: right;
+  margin: 20px 0 10px;
+}
