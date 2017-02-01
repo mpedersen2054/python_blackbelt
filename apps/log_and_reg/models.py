@@ -16,10 +16,10 @@ class UserManager(models.Manager):
         password_conf_valid = False
         user_exists         = False
 
-        # first_name & last_name more than 2 chars, letters only
+        # name must be 3 char
         if len(registerData['name']) > 3:
             name_valid = True
-        # email valid format & exists
+        # username must be 3 chars
         if len(registerData['username']) > 3:
             username_valid = True
         # password exists, more than 8 chars
@@ -29,7 +29,7 @@ class UserManager(models.Manager):
         if registerData['password'] == registerData['password_conf']:
             password_conf_valid = True
 
-        # check if email exists in the db
+        # check if username exists in the db
         user = User.objects.filter(username=registerData['username'])
         if len(user) > 0:
             user_exists = True
@@ -53,13 +53,13 @@ class UserManager(models.Manager):
         user = User.objects.filter(username=loginData['username']).first()
 
         if not user:
-            errors.append('A user with that email doesnt exist in the database. Please register.')
+            errors.append('A user with that username doesnt exist in the database. Please register.')
         else:
             pwhash = user.password.encode()
             if pwhash == bcrypt.hashpw(loginData['password'].encode(), pwhash):
                 print 'PASSWORD MATCHED!!!'
             else:
-                errors.append('User with that email exists, but password was incorrect.')
+                errors.append('User with that username exists, but password was incorrect.')
 
         if user:
             return (user.id, errors)

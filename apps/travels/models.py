@@ -11,11 +11,6 @@ def format_dates(date_one, date_two):
 
 class TravelManager(models.Manager):
     def format_data(self, postData, user):
-        # df = postData['date_from'].split('-')
-        # dt = postData['date_to'].split('-')
-        # date_from = datetime(int(df[0]), int(df[1]), int(df[2]))
-        # date_to = datetime(int(dt[0]), int(dt[1]), int(dt[2]))
-
         date_from, date_to = format_dates(postData['date_from'], postData['date_to'])
 
         return {
@@ -36,11 +31,6 @@ class TravelManager(models.Manager):
         if not data['date_from'] or not data['date_to']:
             errors.append('You need to enter dates.')
         else:
-            # df = data['date_from'].split('-')
-            # dt = data['date_to'].split('-')
-            # date_from = datetime(int(df[0]), int(df[1]), int(df[2]))
-            # date_to = datetime(int(dt[0]), int(dt[1]), int(dt[2]))
-
             date_from, date_to = format_dates(data['date_from'], data['date_to'])
 
             if date_from < datetime.now() or date_to < datetime.now():
