@@ -1,6 +1,5 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from django.core.urlresolvers import reverse
 import bcrypt
 import datetime
 from .models import User
@@ -14,6 +13,8 @@ def index(request):
     return render(request, 'log_and_reg/index.html', context)
 
 def register(request):
+    # print 'REQPOST:', request.POST
+    # return redirect('log_and_reg:index')
     errors = User.objects.validate_register(request.POST)
     if len(errors) > 0:
         for error in errors:
@@ -23,13 +24,12 @@ def register(request):
         encrypted_password = User.objects.encrypt_password(request.POST['password'])
         new_user = User.objects.create(
             name     = request.POST['name'],
-            email    = request.POST['email'],
-            birthday = request.POST['birthday'],
+            username = request.POST['username'],
             password = encrypted_password
         )
         request.session['user_id'] = new_user.id
         messages.success(request, 'Successfully registered user.')
-        return redirect('log_and_reg:index')
+        return redirect('travels:index')
 
 def login(request):
     login = User.objects.validate_login(request.POST)

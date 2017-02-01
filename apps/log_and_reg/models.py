@@ -2,12 +2,13 @@ from __future__ import unicode_literals
 import re
 import bcrypt
 from django.db import models
+from ..travels.models import Travel
 
 class UserManager(models.Manager):
     def validate_register(self, registerData):
         errors = []
-        letter_only_regex = '^[a-zA-Z]+$'
-        email_format_regex = '^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$'
+        # letter_only_regex = '^[a-zA-Z]+$'
+        # email_format_regex = '^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$'
 
         name_valid          = False
         username_valid      = False
@@ -16,10 +17,10 @@ class UserManager(models.Manager):
         user_exists         = False
 
         # first_name & last_name more than 2 chars, letters only
-        if re.match(letter_only_regex, registerData['name']) and len(registerData['name']) > 3:
+        if len(registerData['name']) > 3:
             name_valid = True
         # email valid format & exists
-        if re.match(email_format_regex, registerData['username']) and len(registerData['username']) > 3:
+        if len(registerData['username']) > 3:
             username_valid = True
         # password exists, more than 8 chars
         if len(registerData['password']) > 8:
@@ -34,7 +35,7 @@ class UserManager(models.Manager):
             user_exists = True
 
         if not name_valid:
-            errors.append('The last name was invalid. It needs to be only letters and at least 2 characters')
+            errors.append('The name was invalid. It needs to be only letters and at least 2 characters')
         if not username_valid:
             errors.append('The username was not valid.')
         if not password_valid:
@@ -78,4 +79,5 @@ class User(models.Model):
     password   = models.CharField(max_length=255)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    trips      = models.ManyToManyField(Travel)
     objects    = UserManager()
