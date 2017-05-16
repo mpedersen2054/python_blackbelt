@@ -59,8 +59,7 @@ def create_travel(request):
             description = formatted_data['description'],
             date_from = formatted_data['date_from'],
             date_to = formatted_data['date_to'],
-            added_by = user`
-
+            added_by = user
         )
         # add the trip to the user.trips, save the user
         user.trips.add(trip)
